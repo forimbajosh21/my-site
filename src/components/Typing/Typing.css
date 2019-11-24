@@ -1,0 +1,21 @@
+.typing-container {
+  min-height: calc(100vh - 108px);
+
+  padding-top: 10vh;
+  text-align: center;
+  color: #fff;
+}
+
+.typing-container.scrolled {
+  min-height: calc(100vh - 70px);
+}
+
+.typing-container h1 {
+  font-size: 100px;
+  margin-bottom: 0px;
+}
+
+.typing-container p {
+  font-size: 28px;
+  font-weight: 600;
+}

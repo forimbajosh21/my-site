@@ -1,0 +1,28 @@
+.about {
+  min-height: calc(100vh - 108px);
+  padding-top: 100px;
+}
+
+.about p {
+  color: #2c3e50;
+  font-size: 20px;
+  /* font-weight: 600; */
+  /* line-height: 1.8em; */
+}
+
+.about ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(140px, 200px));
+  margin-top: 20px;
+  overflow: hidden;
+
+  list-style-type: square;
+}
+
+.about ul li {
+  font-size: 13px;
+}
+
+.about img {
+  border-radius: 4px;
+}
