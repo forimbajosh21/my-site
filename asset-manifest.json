@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "joshuasanjose.com/static/css/main.3497358b.chunk.css",
-    "main.js": "joshuasanjose.com/static/js/main.1e53fd18.chunk.js",
-    "main.js.map": "joshuasanjose.com/static/js/main.1e53fd18.chunk.js.map",
-    "runtime-main.js": "joshuasanjose.com/static/js/runtime-main.d8f9cd61.js",
-    "runtime-main.js.map": "joshuasanjose.com/static/js/runtime-main.d8f9cd61.js.map",
-    "static/js/2.8c319463.chunk.js": "joshuasanjose.com/static/js/2.8c319463.chunk.js",
-    "static/js/2.8c319463.chunk.js.map": "joshuasanjose.com/static/js/2.8c319463.chunk.js.map",
-    "index.html": "joshuasanjose.com/index.html",
-    "precache-manifest.173b566393c4c62ecd78780a13af1894.js": "joshuasanjose.com/precache-manifest.173b566393c4c62ecd78780a13af1894.js",
-    "service-worker.js": "joshuasanjose.com/service-worker.js",
-    "static/css/main.3497358b.chunk.css.map": "joshuasanjose.com/static/css/main.3497358b.chunk.css.map",
-    "static/media/business.flyakeed.PNG": "joshuasanjose.com/static/media/business.flyakeed.4c46fb4a.PNG",
-    "static/media/hospital.consultation.PNG": "joshuasanjose.com/static/media/hospital.consultation.321c10cf.PNG",
-    "static/media/me.png": "joshuasanjose.com/static/media/me.fff4ae9f.png",
-    "static/media/medicare.PNG": "joshuasanjose.com/static/media/medicare.503171b2.PNG"
+    "main.css": "/static/css/main.3497358b.chunk.css",
+    "main.js": "/static/js/main.6d2bea59.chunk.js",
+    "main.js.map": "/static/js/main.6d2bea59.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.4ebfcfe4.js",
+    "runtime-main.js.map": "/static/js/runtime-main.4ebfcfe4.js.map",
+    "static/js/2.8c319463.chunk.js": "/static/js/2.8c319463.chunk.js",
+    "static/js/2.8c319463.chunk.js.map": "/static/js/2.8c319463.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.4d91c1e044b70901517ebb8d2d6fe10b.js": "/precache-manifest.4d91c1e044b70901517ebb8d2d6fe10b.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.3497358b.chunk.css.map": "/static/css/main.3497358b.chunk.css.map",
+    "static/media/business.flyakeed.PNG": "/static/media/business.flyakeed.4c46fb4a.PNG",
+    "static/media/hospital.consultation.PNG": "/static/media/hospital.consultation.321c10cf.PNG",
+    "static/media/me.png": "/static/media/me.fff4ae9f.png",
+    "static/media/medicare.PNG": "/static/media/medicare.503171b2.PNG"
   },
   "entrypoints": [
-    "static/js/runtime-main.d8f9cd61.js",
+    "static/js/runtime-main.4ebfcfe4.js",
     "static/js/2.8c319463.chunk.js",
     "static/css/main.3497358b.chunk.css",
-    "static/js/main.1e53fd18.chunk.js"
+    "static/js/main.6d2bea59.chunk.js"
   ]
 }
