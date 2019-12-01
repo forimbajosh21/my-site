@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -10,6 +13,9 @@ import {
   Link,
   Grid
 } from "@material-ui/core";
+
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,7 +30,7 @@ function TabPanel(props) {
       {...other}
     >
       <Grid container>
-        <Grid item xs={12} sm={12} md={8}>
+        <Grid item xs={12}>
           <Box p={3}>{children}</Box>
         </Grid>
       </Grid>
@@ -34,102 +40,196 @@ function TabPanel(props) {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    // backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    height: 224
+    minHeight: "100vh",
+    paddingTop: 100,
+    paddingBottom: 100
+  },
+  tabsRoot: {
+    "@media (min-width: 427px)": {
+      flexGrow: 1,
+      // backgroundColor: theme.palette.background.paper,
+      display: "flex",
+      height: 224
+    }
   },
   tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`
+    "@media (min-width: 427px)": {
+      borderRight: `1px solid ${theme.palette.divider}`,
+      minWidth: 150
+    }
+  },
+  header: {
+    fontWeight: "bold",
+    marginBottom: "15vh",
+
+    "&:after": {
+      content: "close-quote",
+      display: "block",
+      width: "7%",
+      height: 3,
+      background: theme.palette.primary.main,
+
+      "@media (max-width: 425px)": {
+        width: "14%"
+      }
+    }
+  },
+  link: {
+    display: "inline-block",
+    "&:hover": {
+      textDecoration: "none",
+      "&:after": {
+        width: "100%"
+      }
+    },
+    "&:after": {
+      cursor: "pointer",
+      content: "close-quote",
+      display: "block",
+      margin: "0 auto",
+      width: 0,
+      height: 2,
+      background: theme.palette.primary.main,
+      transition: "width .4s"
+    }
+  },
+  list: {
+    "& li": {
+      marginBottom: 15
+    }
   }
 }));
+
+function AnimateContainer({ delay, children }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "tween", delay }}
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 const Experience = () => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [inViewState, setInViewState] = useState(false);
+
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  const [ref, inView] = useInView({
+    /* Optional options */
+    threshold: 0
+  });
+
+  useEffect(() => {
+    if (inView && !inViewState) {
+      setInViewState(inView);
+    }
+  }, [inView, inViewState]);
+
   return (
-    <Box className="section-container">
-      <Container maxWidth="lg">
-        <Typography variant="h5" classes={{ root: "header" }}>
-          <b>Experience</b>
-        </Typography>
+    <Box className={classes.root}>
+      <Container maxWidth="lg" id="experience" ref={ref}>
+        {inViewState && (
+          <AnimateContainer delay={0.2}>
+            <Typography variant="h5" classes={{ root: classes.header }}>
+              <b>Experience</b>
+            </Typography>
 
-        <div className={classes.root}>
-          <Tabs
-            orientation="vertical"
-            variant="scrollable"
-            value={value}
-            onChange={handleChange}
-            aria-label="Vertical tabs example"
-            className={classes.tabs}
-          >
-            <Tab label="Leandev Inc" />
-            <Tab label="Freelance" />
-          </Tabs>
-          <TabPanel value={value} index={0}>
-            <div>
-              <Typography
-                variant="subtitle1"
-                gutterBottom
-                style={{ fontWeight: "bold" }}
-              >
-                Jr. Web Developer/Frontend Developer <Link>@Leandev Inc</Link>
-              </Typography>
-              <Typography variant="caption">February 2018 - Present</Typography>
+            <Container maxWidth="md">
+              <Box className={classes.tabsRoot}>
+                <Tabs
+                  orientation={matches ? "vertical" : "horizontal"}
+                  variant="scrollable"
+                  value={value}
+                  onChange={handleChange}
+                  className={classes.tabs}
+                >
+                  <Tab label="Leandev Inc" />
+                  <Tab label="Freelance" />
+                </Tabs>
+                <TabPanel value={value} index={0}>
+                  <div>
+                    <Typography
+                      variant="subtitle1"
+                      gutterBottom
+                      style={{ fontWeight: "bold" }}
+                    >
+                      Jr. Web Developer/Frontend Developer{" "}
+                      <Link
+                        target="_blank"
+                        href="http://www.leandevinc.com/"
+                        rel="noopener"
+                        className={classes.link}
+                      >
+                        @Leandev Inc
+                      </Link>
+                    </Typography>
+                    <Typography variant="caption">
+                      February 2018 - Present
+                    </Typography>
 
-              <ul>
-                <li>
-                  <Typography variant="body2">
-                    Develop and maintained code for in-house and client website
-                    using HTML, CSS, JavaScript, and React
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="body2">
-                    Worked closely with designers and management team to
-                    develop, document, and manage the corporate online travel
-                    and related services website using CSS, Javascript, GraphQL,
-                    and React.
-                  </Typography>
-                </li>
-              </ul>
-            </div>
-          </TabPanel>
-          <TabPanel value={value} index={1}>
-            <div>
-              <Typography
-                variant="subtitle1"
-                gutterBottom
-                style={{ fontWeight: "bold" }}
-              >
-                Freelance Web Developer
-              </Typography>
-              <Typography variant="caption">January 2017 - 2018</Typography>
+                    <ul className={classes.list}>
+                      <li>
+                        <Typography variant="body2">
+                          Develop and maintained code for in-house and client
+                          website using HTML, CSS, JavaScript, and React
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography variant="body2">
+                          Worked closely with designers and management team to
+                          develop, document, and manage the corporate online
+                          travel and related services website using CSS,
+                          Javascript, GraphQL, and React.
+                        </Typography>
+                      </li>
+                    </ul>
+                  </div>
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                  <div>
+                    <Typography
+                      variant="subtitle1"
+                      gutterBottom
+                      style={{ fontWeight: "bold" }}
+                    >
+                      Freelance Web Developer
+                    </Typography>
+                    <Typography variant="caption">
+                      January 2017 - 2018
+                    </Typography>
 
-              <ul>
-                <li>
-                  <Typography variant="body2">
-                    Work with a variety of different languages, platforms,
-                    frameworks, and content management systems such as
-                    JavaScript, TypeScript, React, Vue, Laravel, Wordpress and
-                    Ionic
-                  </Typography>
-                </li>
-                <li>
-                  <Typography variant="body2">
-                    Develop and delivered efficient and effective web and hybrid
-                    applications on time
-                  </Typography>
-                </li>
-              </ul>
-            </div>
-          </TabPanel>
-        </div>
+                    <ul className={classes.list}>
+                      <li>
+                        <Typography variant="body2">
+                          Work with a variety of different languages, platforms,
+                          frameworks, and content management systems such as
+                          JavaScript, TypeScript, React, Vue, Laravel, Wordpress
+                          and Ionic
+                        </Typography>
+                      </li>
+                      <li>
+                        <Typography variant="body2">
+                          Develop and delivered efficient and effective web and
+                          hybrid applications on time
+                        </Typography>
+                      </li>
+                    </ul>
+                  </div>
+                </TabPanel>
+              </Box>
+            </Container>
+          </AnimateContainer>
+        )}
       </Container>
     </Box>
   );

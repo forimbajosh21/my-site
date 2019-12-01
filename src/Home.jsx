@@ -1,28 +1,26 @@
 import React from "react";
 
-import { Box, useScrollTrigger } from "@material-ui/core";
-
 // components
 import Appbar from "./components/Appbar/Appbar";
-import Typing from "./components/Typing/Typing";
+import Header from "./components/Header/Index";
+// import Typing from "./components/Typing/Typing";
 import About from "./components/About/About";
 import Experience from "./components/Experience/Experience";
 import Portfolio from "./components/Portfolio/Portfolio";
 import Contact from "./components/Contact/Contact";
+import Footer from "./components/Footer/Footer";
 
 const Home = () => {
-  const trigger = useScrollTrigger();
   return (
     <React.Fragment>
-      <Appbar trigger={trigger} />
+      <Appbar />
 
-      <Box style={{ paddingTop: 108, backgroundColor: "#26a69a" }}>
-        <Typing />
-      </Box>
+      <Header />
       <About />
       <Experience />
       <Portfolio />
       <Contact />
+      <Footer />
     </React.Fragment>
   );
 };
