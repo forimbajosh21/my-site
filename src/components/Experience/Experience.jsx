@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -17,32 +17,18 @@ import {
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-function TabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <Typography
-      component="div"
-      role="tabpanel"
-      hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
-      {...other}
-    >
-      <Grid container>
-        <Grid item xs={12}>
-          <Box p={3}>{children}</Box>
-        </Grid>
-      </Grid>
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "100vh",
-    paddingTop: 100,
-    paddingBottom: 100
+    [theme.breakpoints.down("lg")]: {
+      height: "100vh"
+    },
+    height: "70vh"
+  },
+  container: {
+    height: "inherit",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   tabsRoot: {
     "@media (min-width: 427px)": {
@@ -57,6 +43,12 @@ const useStyles = makeStyles(theme => ({
       borderRight: `1px solid ${theme.palette.divider}`,
       minWidth: 150
     }
+  },
+  TabIndicator: {
+    right: "-10px"
+  },
+  tabContainer: {
+    padding: 24
   },
   header: {
     fontWeight: "bold",
@@ -126,7 +118,7 @@ const Experience = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0
+    threshold: 0.5
   });
 
   useEffect(() => {
@@ -137,9 +129,14 @@ const Experience = () => {
 
   return (
     <Box className={classes.root}>
-      <Container maxWidth="lg" id="experience" ref={ref}>
+      <Container
+        maxWidth="lg"
+        id="experience"
+        ref={ref}
+        className={classes.container}
+      >
         {inViewState && (
-          <AnimateContainer delay={0.2}>
+          <AnimateContainer delay={0.3}>
             <Typography variant="h5" classes={{ root: classes.header }}>
               <b>Experience</b>
             </Typography>
@@ -152,80 +149,108 @@ const Experience = () => {
                   value={value}
                   onChange={handleChange}
                   className={classes.tabs}
+                  // TabIndicatorProps={{ className: classes.TabIndicator }}
                 >
                   <Tab label="Leandev Inc" />
                   <Tab label="Freelance" />
                 </Tabs>
-                <TabPanel value={value} index={0}>
-                  <div>
-                    <Typography
-                      variant="subtitle1"
-                      gutterBottom
-                      style={{ fontWeight: "bold" }}
+                <AnimatePresence exitBeforeEnter>
+                  {value === 0 ? (
+                    <motion.div
+                      key={0}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 30 }}
+                      transition={{ type: "tween", delay: 0.2 }}
                     >
-                      Jr. Web Developer/Frontend Developer{" "}
-                      <Link
-                        target="_blank"
-                        href="http://www.leandevinc.com/"
-                        rel="noopener"
-                        className={classes.link}
-                      >
-                        @Leandev Inc
-                      </Link>
-                    </Typography>
-                    <Typography variant="caption">
-                      February 2018 - Present
-                    </Typography>
+                      <Grid container>
+                        <Grid item xs={12}>
+                          <Box className={classes.tabContainer}>
+                            <Typography
+                              variant="subtitle1"
+                              gutterBottom
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Jr. Web Developer/Frontend Developer{" "}
+                              <Link
+                                target="_blank"
+                                href="http://www.leandevinc.com/"
+                                rel="noopener"
+                                className={classes.link}
+                              >
+                                @Leandev Inc
+                              </Link>
+                            </Typography>
+                            <Typography variant="caption">
+                              February 2018 - Present
+                            </Typography>
 
-                    <ul className={classes.list}>
-                      <li>
-                        <Typography variant="body2">
-                          Develop and maintained code for in-house and client
-                          website using HTML, CSS, JavaScript, and React
-                        </Typography>
-                      </li>
-                      <li>
-                        <Typography variant="body2">
-                          Worked closely with designers and management team to
-                          develop, document, and manage the corporate online
-                          travel and related services website using CSS,
-                          Javascript, GraphQL, and React.
-                        </Typography>
-                      </li>
-                    </ul>
-                  </div>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                  <div>
-                    <Typography
-                      variant="subtitle1"
-                      gutterBottom
-                      style={{ fontWeight: "bold" }}
+                            <ul className={classes.list}>
+                              <li>
+                                <Typography variant="body2">
+                                  Develop and maintained code for in-house and
+                                  client website using HTML, CSS, JavaScript,
+                                  and React
+                                </Typography>
+                              </li>
+                              <li>
+                                <Typography variant="body2">
+                                  Worked closely with designers and management
+                                  team to develop, document, and manage the
+                                  corporate online travel and related services
+                                  website using CSS, Javascript, GraphQL, and
+                                  React.
+                                </Typography>
+                              </li>
+                            </ul>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key={1}
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: 30 }}
+                      transition={{ type: "tween", delay: 0.2 }}
                     >
-                      Freelance Web Developer
-                    </Typography>
-                    <Typography variant="caption">
-                      January 2017 - 2018
-                    </Typography>
+                      <Grid container>
+                        <Grid item xs={12}>
+                          <Box className={classes.tabContainer}>
+                            <Typography
+                              variant="subtitle1"
+                              gutterBottom
+                              style={{ fontWeight: "bold" }}
+                            >
+                              Freelance Web Developer
+                            </Typography>
+                            <Typography variant="caption">
+                              January 2017 - 2018
+                            </Typography>
 
-                    <ul className={classes.list}>
-                      <li>
-                        <Typography variant="body2">
-                          Work with a variety of different languages, platforms,
-                          frameworks, and content management systems such as
-                          JavaScript, TypeScript, React, Vue, Laravel, Wordpress
-                          and Ionic
-                        </Typography>
-                      </li>
-                      <li>
-                        <Typography variant="body2">
-                          Develop and delivered efficient and effective web and
-                          hybrid applications on time
-                        </Typography>
-                      </li>
-                    </ul>
-                  </div>
-                </TabPanel>
+                            <ul className={classes.list}>
+                              <li>
+                                <Typography variant="body2">
+                                  Work with a variety of different languages,
+                                  platforms, frameworks, and content management
+                                  systems such as JavaScript, TypeScript, React,
+                                  Vue, Laravel, Wordpress and Ionic
+                                </Typography>
+                              </li>
+                              <li>
+                                <Typography variant="body2">
+                                  Develop and delivered efficient and effective
+                                  web and hybrid applications on time
+                                </Typography>
+                              </li>
+                            </ul>
+                          </Box>
+                        </Grid>
+                      </Grid>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </Box>
             </Container>
           </AnimateContainer>

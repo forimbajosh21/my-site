@@ -7,15 +7,17 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "calc(100vh - 64px)",
-    backgroundColor: theme.palette.primary.main,
-    padding: "100px 0"
+    [theme.breakpoints.down("lg")]: {
+      height: "calc(100vh - 64px)"
+    },
+    height: "calc(70vh - 64px)",
+    backgroundColor: theme.palette.primary.main
   },
   container: {
-    height: "100%"
-    // display: "flex",
-    // flexDirection: "column",
-    // justifyContent: "flex-end"
+    height: "inherit",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   header: {
     color: theme.palette.common.white,

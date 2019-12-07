@@ -20,9 +20,16 @@ import CustomDialog from "./Dialog";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "100vh",
-    paddingTop: 100,
-    paddingBottom: 100
+    [theme.breakpoints.down("lg")]: {
+      height: "100vh"
+    },
+    height: "70vh"
+  },
+  container: {
+    height: "inherit",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   header: {
     fontWeight: "bold",
@@ -94,7 +101,7 @@ const Portfolio = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0
+    threshold: 0.5
   });
 
   useEffect(() => {
@@ -112,9 +119,14 @@ const Portfolio = () => {
     <React.Fragment>
       <CustomDialog isOpen={isOpen} setIsOpen={setIsOpen} id={id} />
       <Box className={classes.root}>
-        <Container maxWidth="lg" id="portfolio" ref={ref}>
+        <Container
+          maxWidth="lg"
+          id="portfolio"
+          ref={ref}
+          className={classes.container}
+        >
           {inViewState && (
-            <AnimateContainer delay={0.2}>
+            <AnimateContainer delay={0.3}>
               <Typography variant="h5" classes={{ root: classes.header }}>
                 Portfolio
               </Typography>

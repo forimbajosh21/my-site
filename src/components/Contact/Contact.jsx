@@ -7,15 +7,17 @@ import { Box, Container, Typography, Grid, Button } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "100vh",
-    paddingTop: 100,
-    paddingBottom: 100
+    [theme.breakpoints.down("lg")]: {
+      height: "100vh"
+    },
+    height: "70vh"
   },
   container: {
-    height: "100%",
+    height: "inherit",
     display: "flex",
+    justifyContent: "center",
     alignItems: "center"
   },
   header: {
@@ -46,7 +48,7 @@ const Contact = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0
+    threshold: 0.5
   });
 
   useEffect(() => {
@@ -64,7 +66,7 @@ const Contact = () => {
         ref={ref}
       >
         {inViewState && (
-          <AnimateContainer delay={0}>
+          <AnimateContainer delay={0.3}>
             <Typography
               variant="h3"
               align="center"

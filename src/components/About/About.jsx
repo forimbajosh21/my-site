@@ -11,12 +11,16 @@ import Joshua from "../../assets/images/me.png";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: "100vh",
-    paddingTop: 100,
-    paddingBottom: 100
+    [theme.breakpoints.down("lg")]: {
+      height: "100vh"
+    },
+    height: "70vh"
   },
   container: {
-    height: "100%"
+    height: "inherit",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center"
   },
   header: {
     fontWeight: "bold",
@@ -69,7 +73,7 @@ const About = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0
+    threshold: 0.5
   });
 
   useEffect(() => {
@@ -87,7 +91,7 @@ const About = () => {
         ref={ref}
       >
         {inViewState && (
-          <AnimateContainer delay={0.2}>
+          <AnimateContainer delay={0.3}>
             <Typography variant="h5" className={classes.header}>
               About Me
             </Typography>
