@@ -8,13 +8,13 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      height: "calc(100vh - 64px)"
+      minHeight: "calc(100vh - 64px)"
     },
-    height: "calc(70vh - 64px)",
+    minHeight: "calc(70vh - 64px)",
     backgroundColor: theme.palette.primary.main
   },
   container: {
-    height: "inherit",
+    minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"

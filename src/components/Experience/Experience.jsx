@@ -20,12 +20,12 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      height: "100vh"
+      minHeight: "80vh"
     },
-    height: "70vh"
+    minHeight: "70vh"
   },
   container: {
-    height: "inherit",
+    minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
@@ -110,7 +110,7 @@ const Experience = () => {
   const [inViewState, setInViewState] = useState(false);
 
   const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const matches = useMediaQuery(theme.breakpoints.up("sm"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

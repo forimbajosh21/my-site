@@ -10,12 +10,12 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      height: "100vh"
+      minHeight: "100vh"
     },
-    height: "70vh"
+    minHeight: "70vh"
   },
   container: {
-    height: "inherit",
+    minHeight: "inherit",
     display: "flex",
     justifyContent: "center",
     alignItems: "center"

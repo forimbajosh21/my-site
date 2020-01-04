@@ -12,12 +12,12 @@ import Joshua from "../../assets/images/me.png";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      height: "100vh"
+      minHeight: "80vh"
     },
-    height: "70vh"
+    minHeight: "70vh"
   },
   container: {
-    height: "inherit",
+    minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
@@ -136,7 +136,10 @@ const About = () => {
                 </ul>
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
-                <div style={{ position: "relative" }}>
+                <Box
+                  style={{ position: "relative" }}
+                  display={{ xs: "none", sm: "none", md: "block", lg: "block" }}
+                >
                   <motion.div
                     drag="y"
                     dragConstraints={{ top: -10, bottom: 0 }}
@@ -167,7 +170,7 @@ const About = () => {
                   >
                     Baguio, Sagada water falls
                   </p>
-                </div>
+                </Box>
               </Grid>
             </Grid>
           </AnimateContainer>

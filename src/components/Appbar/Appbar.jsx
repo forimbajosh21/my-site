@@ -27,6 +27,7 @@ const styles = theme => ({
   title: {
     flexGrow: 1
   },
+
   button: {
     minWidth: 100,
     textTransform: "none",
@@ -37,8 +38,8 @@ const styles = theme => ({
     "&:hover": {
       color: theme.palette.secondary.main
     },
-    "@media (max-width: 425px)": {
-      marginBottom: 15
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: 25
     }
   },
   buttonResume: {

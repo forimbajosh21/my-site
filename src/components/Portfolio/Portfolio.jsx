@@ -21,12 +21,12 @@ import CustomDialog from "./Dialog";
 const useStyles = makeStyles(theme => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      height: "100vh"
+      minHeight: "80vh"
     },
-    height: "70vh"
+    minHeight: "70vh"
   },
   container: {
-    height: "inherit",
+    minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
