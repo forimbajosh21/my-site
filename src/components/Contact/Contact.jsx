@@ -7,27 +7,27 @@ import { Box, Container, Typography, Grid, Button } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      minHeight: "100vh"
+      minHeight: "80vh",
     },
-    minHeight: "70vh"
+    minHeight: "70vh",
   },
   container: {
     minHeight: "inherit",
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   header: {
     "@media (max-width: 425px)": {
-      fontSize: 36
-    }
+      fontSize: 36,
+    },
   },
   text: {
-    marginBottom: 80
-  }
+    marginBottom: 80,
+  },
 }));
 
 function AnimateContainer({ delay, children }) {
@@ -48,7 +48,7 @@ const Contact = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0.5
+    threshold: 0.5,
   });
 
   useEffect(() => {

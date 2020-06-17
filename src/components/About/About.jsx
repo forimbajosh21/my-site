@@ -9,20 +9,23 @@ import { useInView } from "react-intersection-observer";
 import "./About.css";
 import Joshua from "../../assets/images/me.png";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      minHeight: "80vh"
+      minHeight: "80vh",
     },
-    minHeight: "70vh"
+    minHeight: "70vh",
   },
   container: {
     minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   header: {
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "8vh",
+    },
     fontWeight: "bold",
     marginBottom: "15vh",
 
@@ -34,9 +37,9 @@ const useStyles = makeStyles(theme => ({
       background: theme.palette.primary.main,
 
       "@media (max-width: 425px)": {
-        width: "14%"
-      }
-    }
+        width: "14%",
+      },
+    },
   },
   list: {
     display: "grid",
@@ -47,11 +50,11 @@ const useStyles = makeStyles(theme => ({
 
     "& li": {
       // fontSize: 14
-    }
+    },
   },
   image: {
-    borderRadius: 4
-  }
+    borderRadius: 4,
+  },
 }));
 
 function AnimateContainer({ delay, children }) {
@@ -73,7 +76,7 @@ const About = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0.5
+    threshold: 0.5,
   });
 
   useEffect(() => {
@@ -147,7 +150,7 @@ const About = () => {
                     style={{
                       position: "relative",
                       cursor: "pointer",
-                      zIndex: 1
+                      zIndex: 1,
                     }}
                   >
                     <img
@@ -165,7 +168,7 @@ const About = () => {
                       bottom: 0,
                       zIndex: 0,
                       fontSize: 14,
-                      textDecoration: "underline"
+                      textDecoration: "underline",
                     }}
                   >
                     Baguio, Sagada water falls

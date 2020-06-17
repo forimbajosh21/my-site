@@ -3,35 +3,30 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Card,
-  CardContent
-} from "@material-ui/core";
+import { Box, Container, Typography, Grid } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-import FolderOpenIcon from "@material-ui/icons/FolderOpen";
-
+import PortfolioCard from "./PortfolioCard";
 import CustomDialog from "./Dialog";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      minHeight: "80vh"
+      minHeight: "80vh",
     },
-    minHeight: "70vh"
+    minHeight: "70vh",
   },
   container: {
     minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   header: {
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "8vh",
+    },
     fontWeight: "bold",
     marginBottom: "15vh",
 
@@ -43,36 +38,10 @@ const useStyles = makeStyles(theme => ({
       background: theme.palette.primary.main,
 
       "@media (max-width: 425px)": {
-        width: "14%"
-      }
-    }
+        width: "14%",
+      },
+    },
   },
-  card: {
-    border: `1px solid ${theme.palette.secondary.main}`,
-    cursor: "pointer",
-    minHeight: 350,
-    position: "relative",
-    paddingTop: 15,
-    paddingLeft: 15,
-    paddingRight: 15
-  },
-  cardHeader: {
-    display: "flex",
-    alignItems: "center",
-    marginBottom: 15
-  },
-  cardDescription: {
-    marginBottom: 15,
-    fontSize: 17
-  },
-  cardTechnology: {
-    position: "absolute",
-    bottom: 15,
-
-    "& span": {
-      marginRight: 15
-    }
-  }
 }));
 
 function AnimateContainer({ delay, children }) {
@@ -101,7 +70,7 @@ const Portfolio = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0.5
+    threshold: 0.5,
   });
 
   useEffect(() => {
@@ -110,7 +79,7 @@ const Portfolio = () => {
     }
   }, [inView, inViewState]);
 
-  const openDialog = value => {
+  const openDialog = (value) => {
     setId(value);
     setIsOpen(true);
   };
@@ -130,130 +99,58 @@ const Portfolio = () => {
               <Typography variant="h5" classes={{ root: classes.header }}>
                 Portfolio
               </Typography>
-              <Grid container spacing={4}>
-                <Grid item xs={12} sm={12} md={4}>
+              <Grid container spacing={4} justify="center">
+                <Grid item xs={12} sm={10} md={4}>
                   <AnimateContainer delay={0.5}>
                     <CardContainer>
-                      <Card
-                        elevation={0}
-                        className={classes.card}
-                        onClick={() => openDialog(0)}
-                      >
-                        <CardContent>
-                          <Box className={classes.cardHeader}>
-                            <FolderOpenIcon fontSize="large" />
-
-                            <Box display="inline" pl={1}>
-                              <Typography variant="h5" display="inline">
-                                <Box component="b">Business Flyakeed</Box>
-                              </Typography>
-                            </Box>
-                          </Box>
-
-                          <Typography
-                            variant="body1"
-                            component="p"
-                            className={classes.cardDescription}
-                          >
-                            Business related website that caters with online
-                            flight and hotel bookings and related business
-                            services.
-                          </Typography>
-
-                          <Box className={classes.cardTechnology}>
-                            <Typography variant="caption" component="span">
-                              React
-                            </Typography>
-                            <Typography variant="caption" component="span">
-                              Graphql
-                            </Typography>
-                          </Box>
-                        </CardContent>
-                      </Card>
+                      <PortfolioCard
+                        open={() => openDialog(0)}
+                        title="Coach2Grow"
+                        description="Let Globe Telecom's Coach2Grow app change the way you document and organize your coaching sessions!"
+                        technologies={["React Native", "Redux"]}
+                      />
                     </CardContainer>
                   </AnimateContainer>
                 </Grid>
-                <Grid item xs={12} sm={12} md={4}>
+                <Grid item xs={12} sm={10} md={4}>
+                  <AnimateContainer delay={0.5}>
+                    <CardContainer>
+                      <PortfolioCard
+                        open={() => openDialog(1)}
+                        title="Business Flyakeed"
+                        description="Business related website that caters with online
+                            flight and hotel bookings and related business
+                            services."
+                        technologies={["React", "Graphql"]}
+                      />
+                    </CardContainer>
+                  </AnimateContainer>
+                </Grid>
+                <Grid item xs={12} sm={10} md={4}>
                   <AnimateContainer delay={0.6}>
                     <CardContainer>
-                      <Card
-                        elevation={0}
-                        className={classes.card}
-                        onClick={() => openDialog(1)}
-                      >
-                        <CardContent>
-                          <Box className={classes.cardHeader}>
-                            <FolderOpenIcon fontSize="large" />
-
-                            <Box display="inline" pl={1}>
-                              <Typography variant="h5" display="inline">
-                                <Box component="b">Hospital Consultation</Box>
-                              </Typography>
-                            </Box>
-                          </Box>
-
-                          <Typography
-                            variant="body1"
-                            component="p"
-                            className={classes.cardDescription}
-                          >
-                            Website that helps patient in booking their
+                      <PortfolioCard
+                        open={() => openDialog(2)}
+                        title="Hospital Consultation"
+                        description="Website that helps patient in booking their
                             consultations and any other related hospital
-                            services.
-                          </Typography>
-
-                          <Box className={classes.cardTechnology}>
-                            <Typography variant="caption" component="span">
-                              Vue
-                            </Typography>
-                            <Typography variant="caption" component="span">
-                              Laravel
-                            </Typography>
-                          </Box>
-                        </CardContent>
-                      </Card>
+                            services."
+                        technologies={["Vue", "Laravel"]}
+                      />
                     </CardContainer>
                   </AnimateContainer>
                 </Grid>
-                <Grid item xs={12} sm={12} md={4}>
+                <Grid item xs={12} sm={10} md={4}>
                   <AnimateContainer delay={0.7}>
                     <CardContainer>
-                      <Card
-                        elevation={0}
-                        className={classes.card}
-                        onClick={() => openDialog(2)}
-                      >
-                        <CardContent>
-                          <Box className={classes.cardHeader}>
-                            <FolderOpenIcon fontSize="large" />
-
-                            <Box display="inline" pl={1}>
-                              <Typography variant="h5" display="inline">
-                                <Box component="b">Medicare</Box>
-                              </Typography>
-                            </Box>
-                          </Box>
-
-                          <Typography
-                            variant="body1"
-                            component="p"
-                            className="class-description"
-                          >
-                            Prototype Android app feature that provided user
+                      <PortfolioCard
+                        open={() => openDialog(3)}
+                        title="Medicare"
+                        description="Prototype Android app feature that provided user
                             with the ability to remind them when to take their
-                            medicine via notification and sms message.
-                          </Typography>
-
-                          <Box className={classes.cardTechnology}>
-                            <Typography variant="caption" component="span">
-                              Flutter
-                            </Typography>
-                            <Typography variant="caption" component="span">
-                              Laravel
-                            </Typography>
-                          </Box>
-                        </CardContent>
-                      </Card>
+                            medicine via notification and sms message."
+                        technologies={["Flutter", "Laravel"]}
+                      />
                     </CardContainer>
                   </AnimateContainer>
                 </Grid>

@@ -4,53 +4,54 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 import { makeStyles } from "@material-ui/core/styles";
-import {
-  Box,
-  Container,
-  Typography,
-  Tabs,
-  Tab,
-  Link,
-  Grid
-} from "@material-ui/core";
+import { Box, Container, Typography, Tabs, Tab } from "@material-ui/core";
 
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useStyles = makeStyles(theme => ({
+import ExperienceTab from "./ExperienceTab";
+
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      minHeight: "80vh"
+      minHeight: "80vh",
     },
-    minHeight: "70vh"
+    minHeight: "70vh",
   },
   container: {
+    [theme.breakpoints.down("xs")]: {
+      justifyContent: "flex-start",
+    },
     minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   tabsRoot: {
     "@media (min-width: 427px)": {
       flexGrow: 1,
       // backgroundColor: theme.palette.background.paper,
       display: "flex",
-      height: 224
-    }
+      minHeight: 224,
+    },
   },
   tabs: {
+    minWidth: 154,
     "@media (min-width: 427px)": {
       borderRight: `1px solid ${theme.palette.divider}`,
-      minWidth: 150
-    }
+    },
   },
   TabIndicator: {
-    right: "-10px"
+    // right: "-10px",
+    backgroundColor: theme.palette.primary.main,
   },
   tabContainer: {
-    padding: 24
+    padding: 24,
   },
   header: {
+    [theme.breakpoints.down("xs")]: {
+      marginBottom: "8vh",
+    },
     fontWeight: "bold",
     marginBottom: "15vh",
 
@@ -62,34 +63,10 @@ const useStyles = makeStyles(theme => ({
       background: theme.palette.primary.main,
 
       "@media (max-width: 425px)": {
-        width: "14%"
-      }
-    }
-  },
-  link: {
-    display: "inline-block",
-    "&:hover": {
-      textDecoration: "none",
-      "&:after": {
-        width: "100%"
-      }
+        width: "14%",
+      },
     },
-    "&:after": {
-      cursor: "pointer",
-      content: "close-quote",
-      display: "block",
-      margin: "0 auto",
-      width: 0,
-      height: 2,
-      background: theme.palette.primary.main,
-      transition: "width .4s"
-    }
   },
-  list: {
-    "& li": {
-      marginBottom: 15
-    }
-  }
 }));
 
 function AnimateContainer({ delay, children }) {
@@ -118,7 +95,7 @@ const Experience = () => {
 
   const [ref, inView] = useInView({
     /* Optional options */
-    threshold: 0.5
+    threshold: 0.5,
   });
 
   useEffect(() => {
@@ -126,6 +103,74 @@ const Experience = () => {
       setInViewState(inView);
     }
   }, [inView, inViewState]);
+
+  const displayCurrentTab = (value) => {
+    if (value === 0) {
+      return (
+        <motion.div
+          key={value}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 30 }}
+          transition={{ type: "tween", delay: 0.2 }}
+        >
+          <ExperienceTab
+            title="Software Engineer"
+            link="https://www.bizmates.ph/"
+            linkAt="Bizmates PH"
+            date="February 2020 - Present"
+            lists={[
+              "Contributed to each project delivery phase (analysis, development, tests) in different roles",
+              "Worked with variety of different languages and frameworks such as FuelPHP, PHP, Javascript",
+              "Communicate with multi-disciplinary teams of engineers, designers, producers, and clients on a daily basis",
+            ]}
+          />
+        </motion.div>
+      );
+    } else if (value === 1) {
+      return (
+        <motion.div
+          key={value}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 30 }}
+          transition={{ type: "tween", delay: 0.2 }}
+        >
+          <ExperienceTab
+            title="Frontend Developer"
+            link="http://www.leandevinc.com/"
+            linkAt="Leandev Inc"
+            date="February 2018 - February 2020"
+            lists={[
+              "Develop and maintained code for in-house and client website using HTML, CSS, JavaScript, and React",
+              "Worked closely with designers and management team to develop, document, and manage the corporate online travel and related services website using CSS, Javascript, GraphQL, and React.",
+            ]}
+          />
+        </motion.div>
+      );
+    } else if (value === 2) {
+      return (
+        <motion.div
+          key={value}
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 30 }}
+          transition={{ type: "tween", delay: 0.2 }}
+        >
+          <ExperienceTab
+            title="Freelance Web Developer"
+            link=""
+            linkAt=""
+            date="January 2017 - 2018"
+            lists={[
+              "Work with a variety of different languages, platforms, frameworks, and content management systems such as JavaScript, TypeScript, React, Vue, Laravel, Wordpress and Ionic",
+              "Develop and delivered efficient and effective web and hybrid applications on time",
+            ]}
+          />
+        </motion.div>
+      );
+    }
+  };
 
   return (
     <Box className={classes.root}>
@@ -149,107 +194,14 @@ const Experience = () => {
                   value={value}
                   onChange={handleChange}
                   className={classes.tabs}
-                  // TabIndicatorProps={{ className: classes.TabIndicator }}
+                  TabIndicatorProps={{ className: classes.TabIndicator }}
                 >
+                  <Tab label="Bizmates PH" />
                   <Tab label="Leandev Inc" />
                   <Tab label="Freelance" />
                 </Tabs>
                 <AnimatePresence exitBeforeEnter>
-                  {value === 0 ? (
-                    <motion.div
-                      key={0}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 30 }}
-                      transition={{ type: "tween", delay: 0.2 }}
-                    >
-                      <Grid container>
-                        <Grid item xs={12}>
-                          <Box className={classes.tabContainer}>
-                            <Typography
-                              variant="subtitle1"
-                              gutterBottom
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Jr. Web Developer/Frontend Developer{" "}
-                              <Link
-                                target="_blank"
-                                href="http://www.leandevinc.com/"
-                                rel="noopener"
-                                className={classes.link}
-                              >
-                                @Leandev Inc
-                              </Link>
-                            </Typography>
-                            <Typography variant="caption">
-                              February 2018 - Present
-                            </Typography>
-
-                            <ul className={classes.list}>
-                              <li>
-                                <Typography variant="body2">
-                                  Develop and maintained code for in-house and
-                                  client website using HTML, CSS, JavaScript,
-                                  and React
-                                </Typography>
-                              </li>
-                              <li>
-                                <Typography variant="body2">
-                                  Worked closely with designers and management
-                                  team to develop, document, and manage the
-                                  corporate online travel and related services
-                                  website using CSS, Javascript, GraphQL, and
-                                  React.
-                                </Typography>
-                              </li>
-                            </ul>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key={1}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 30 }}
-                      transition={{ type: "tween", delay: 0.2 }}
-                    >
-                      <Grid container>
-                        <Grid item xs={12}>
-                          <Box className={classes.tabContainer}>
-                            <Typography
-                              variant="subtitle1"
-                              gutterBottom
-                              style={{ fontWeight: "bold" }}
-                            >
-                              Freelance Web Developer
-                            </Typography>
-                            <Typography variant="caption">
-                              January 2017 - 2018
-                            </Typography>
-
-                            <ul className={classes.list}>
-                              <li>
-                                <Typography variant="body2">
-                                  Work with a variety of different languages,
-                                  platforms, frameworks, and content management
-                                  systems such as JavaScript, TypeScript, React,
-                                  Vue, Laravel, Wordpress and Ionic
-                                </Typography>
-                              </li>
-                              <li>
-                                <Typography variant="body2">
-                                  Develop and delivered efficient and effective
-                                  web and hybrid applications on time
-                                </Typography>
-                              </li>
-                            </ul>
-                          </Box>
-                        </Grid>
-                      </Grid>
-                    </motion.div>
-                  )}
+                  {displayCurrentTab(value)}
                 </AnimatePresence>
               </Box>
             </Container>

@@ -5,44 +5,44 @@ import { motion } from "framer-motion";
 import { Box, Container, Typography, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     [theme.breakpoints.down("lg")]: {
-      minHeight: "calc(100vh - 64px)"
+      minHeight: "calc(90vh - 64px)",
     },
     minHeight: "calc(70vh - 64px)",
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
   },
   container: {
     minHeight: "inherit",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   header: {
     color: theme.palette.common.white,
 
     "@media (max-width: 425px)": {
-      fontSize: 36
-    }
+      fontSize: 36,
+    },
   },
   bolder: {
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   text: {
     color: theme.palette.common.white,
     fontWeight: "normal",
 
     "@media (max-width: 425px)": {
-      fontSize: 18
-    }
+      fontSize: 18,
+    },
   },
   button: {
     boxShadow: "none",
     "&:hover": {
-      boxShadow: "none"
-    }
-  }
+      boxShadow: "none",
+    },
+  },
 }));
 
 function AnimateContainer({ delay, children }) {
@@ -83,8 +83,8 @@ const Header = () => {
         <Box mb={5}>
           <AnimateContainer delay={0.9}>
             <Typography variant="h6" classes={{ root: classes.text }}>
-              I'm a Frontend Developer based on Philippines, who loves to <br />
-              create things that live on internet.
+              I'm a Frontend Developer based on Philippines, I'm looking forward{" "}
+              <br /> in creating something that user will really love.
             </Typography>
           </AnimateContainer>
         </Box>

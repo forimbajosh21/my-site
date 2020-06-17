@@ -7,16 +7,37 @@ import {
   DialogActions,
   Button,
   Typography,
-  Link
+  Link,
+  Box,
 } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
 
+import coach2grow from "../../assets/images/coach2grow.png";
 import business from "../../assets/images/business.flyakeed.PNG";
 import hospital from "../../assets/images/hospital.consultation.PNG";
 import medicare from "../../assets/images/medicare.PNG";
 
 const data = [
+  {
+    title: "Coach2Grow",
+    description:
+      "Let Globe Telecom's Coach2Grow app change the way you document and organize your coaching sessions!",
+    sub: "Techonology used mainly are:",
+    tech: [" React Native,", " Redux"],
+    images: [coach2grow],
+    links: [
+      {
+        type: "Android",
+        url:
+          "https://play.google.com/store/apps/details?id=globe.coach2grow.android&hl=en",
+      },
+      {
+        type: "iOS",
+        url: "https://apps.apple.com/ph/app/coach2grow/id1208522569",
+      },
+    ],
+  },
   {
     title: "Business Fylakeed",
     description:
@@ -24,7 +45,9 @@ const data = [
     sub: "Techonology used mainly are:",
     tech: [" Reactjs,", " Graphql,", " Material UI"],
     images: [business],
-    link: "https://business.flyakeed.com/"
+    links: [
+      { type: "Business FlyAkeed", url: "https://business.flyakeed.com/" },
+    ],
   },
   {
     title: "Hospital Consultation",
@@ -33,7 +56,7 @@ const data = [
     sub: "Techonology used mainly are:",
     tech: [" Vue,", " Laravel API,", " Vuetify"],
     images: [hospital],
-    link: null
+    links: null,
   },
   {
     title: "Medicare",
@@ -42,24 +65,48 @@ const data = [
     sub: "Techonology used mainly are:",
     tech: [" Flutter,", " Laravel API,"],
     images: [medicare],
-    link: null
-  }
+    links: null,
+  },
 ];
 
 const useStyles = makeStyles(() => ({
+  imagesCoach2Grow: {
+    height: 250,
+    borderRadius: 4,
+    marginBottom: 15,
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
+  },
   image: {
     width: "100%",
     height: 250,
     borderRadius: 4,
-    marginBottom: 15
+    marginBottom: 15,
   },
   text: {
-    marginTop: 15
-  }
+    marginRight: 15,
+  },
 }));
 
 const CustomDialog = ({ isOpen, setIsOpen, id }) => {
   const classes = useStyles();
+
+  const displayLinks = (data) => {
+    return data.map((link) => (
+      <Typography
+        key={link.url}
+        variant="caption"
+        display="inline"
+        className={classes.text}
+      >
+        Link:&nbsp;
+        <Link target="_blank" href={link.url} rel="noopener">
+          {link.type}
+        </Link>
+      </Typography>
+    ));
+  };
   return (
     <Dialog
       open={isOpen}
@@ -71,7 +118,12 @@ const CustomDialog = ({ isOpen, setIsOpen, id }) => {
       <DialogTitle>{data[id].title}</DialogTitle>
       <DialogContent>
         {data[id].images.map((value, key) => (
-          <img key={key} src={value} alt="Logo" className={classes.image} />
+          <img
+            key={key}
+            src={value}
+            alt="Logo"
+            className={id === 0 ? classes.imagesCoach2Grow : classes.image}
+          />
         ))}
         <Typography variant="body1" gutterBottom>
           {data[id].description}
@@ -79,27 +131,17 @@ const CustomDialog = ({ isOpen, setIsOpen, id }) => {
         <Typography variant="body2" display="inline">
           {data[id].sub}{" "}
           {data[id].tech.map((value, key) => (
-            <Typography key={key} variant="body2" display="inline">
+            <Typography
+              key={key}
+              variant="body2"
+              display="inline"
+              component="span"
+            >
               <b>{value}</b>
             </Typography>
           ))}
         </Typography>
-        {data[id].link && (
-          <Typography
-            variant="caption"
-            display="block"
-            className={classes.text}
-          >
-            Link:{" "}
-            <Link
-              target="_blank"
-              href="https://business.flyakeed.com/"
-              rel="noopener"
-            >
-              Business Flyakeed
-            </Link>
-          </Typography>
-        )}
+        <Box mt={3}>{data[id].links && displayLinks(data[id].links)}</Box>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setIsOpen(false)} color="secondary">
